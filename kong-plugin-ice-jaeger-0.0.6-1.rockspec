@@ -1,9 +1,9 @@
 package = "kong-plugin-ice-jaeger"
-version = "0.0.4-1"
+version = "0.0.6-1"
 
 source = {
   url = "git+https://git@github.com/CodingForMoney/kong-plugin-zipkin.git",
-  tag = "0.0.4",
+  tag = "0.0.6",
 }
 
 description = {
@@ -21,10 +21,10 @@ dependencies = {
 build = {
   type = "builtin",
   modules = {
-    ["kong.plugins.ice-jaeger.handler"] = "kong/plugins/zipkin/handler.lua",
-    ["kong.plugins.ice-jaeger.reporter"] = "kong/plugins/zipkin/reporter.lua",
-    ["kong.plugins.ice-jaeger.span"] = "kong/plugins/zipkin/span.lua",
-    ["kong.plugins.ice-jaeger.tracing_headers"] = "kong/plugins/zipkin/tracing_headers.lua",
-    ["kong.plugins.ice-jaeger.schema"] = "kong/plugins/zipkin/schema.lua",
+    ["kong.plugins.ice-jaeger.handler"] = "kong/plugins/ice-jaeger/handler.lua",
+    ["kong.plugins.ice-jaeger.reporter"] = "kong/plugins/ice-jaeger/reporter.lua",
+    ["kong.plugins.ice-jaeger.span"] = "kong/plugins/ice-jaeger/span.lua",
+    ["kong.plugins.ice-jaeger.tracing_headers"] = "kong/plugins/ice-jaeger/tracing_headers.lua",
+    ["kong.plugins.ice-jaeger.schema"] = "kong/plugins/ice-jaeger/schema.lua",
   },
 }
