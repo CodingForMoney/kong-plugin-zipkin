@@ -1,7 +1,7 @@
-local new_zipkin_reporter = require "kong.plugins.zipkin.reporter".new
-local new_span = require "kong.plugins.zipkin.span".new
+local new_zipkin_reporter = require "kong.plugins.ice-jaeger.reporter".new
+local new_span = require "kong.plugins.ice-jaeger.span".new
 local utils = require "kong.tools.utils"
-local tracing_headers = require "kong.plugins.zipkin.tracing_headers"
+local tracing_headers = require "kong.plugins.ice-jaeger.tracing_headers"
 
 local subsystem = ngx.config.subsystem
 local fmt = string.format
