@@ -224,6 +224,11 @@ end
 -- * The erroneous formatting on *any* header (even those overriden by B3 single) results
 --   in rejection (ignoring) of all headers. This rejection is logged.
 local function find_header_type(headers)
+  local requestid_header = headers["request-id"]
+  if requestid_header then
+    return "ice-jaeger", requestid_header
+  end
+
   local b3_single_header = headers["b3"]
   if not b3_single_header then
     local tracestate_header = headers["tracestate"]
@@ -250,10 +255,6 @@ local function find_header_type(headers)
     return "w3c", w3c_header
   end
 
-  local requestid_header = headers["request-id"]
-  if requestid_header then
-    return "ice-jaeger", requestid_header
-  end
 end
 
 
@@ -266,7 +267,7 @@ local function parse(headers)
     trace_id, span_id, parent_id, should_sample = parse_zipkin_b3_headers(headers, composed_header)
   elseif header_type == "w3c" then
     trace_id, parent_id, should_sample = parse_w3c_trace_context_headers(composed_header)
-  elseif header_type == "request-id" then
+  elseif header_type == "ice-jaeger" then
     trace_id = composed_header
   end
 
