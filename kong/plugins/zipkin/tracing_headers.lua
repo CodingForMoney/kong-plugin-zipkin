@@ -252,7 +252,7 @@ local function find_header_type(headers)
 
   local requestid_header = headers["request-id"]
   if requestid_header then
-    return "request-id", requestid_header
+    return "ice-jaeger", requestid_header
   end
 end
 
@@ -321,6 +321,14 @@ local function set(conf_header_type, found_header_type, proxy_span, conf_default
         to_hex(proxy_span.trace_id),
         to_hex(proxy_span.span_id),
       proxy_span.should_sample and "01" or "00"))
+  end
+
+  if conf_header_type == "ice-jaeger" or found_header_type == "ice-jaeger" then
+    set_header("uber-trace-id", fmt("%s:%s:%s:%s",
+    to_hex(proxy_span.trace_id),
+    to_hex(proxy_span.span_id),
+    to_hex(proxy_span.parent_id)),
+    proxy_span.should_sample and "1" or "0")
   end
 
   for key, value in proxy_span:each_baggage_item() do
