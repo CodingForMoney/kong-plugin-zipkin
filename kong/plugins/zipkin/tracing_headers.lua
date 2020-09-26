@@ -249,6 +249,11 @@ local function find_header_type(headers)
   if w3c_header then
     return "w3c", w3c_header
   end
+
+  local requestid_header = headers["request-id"]
+  if requestid_header then
+    return "request-id", requestid_header
+  end
 end
 
 
@@ -261,6 +266,8 @@ local function parse(headers)
     trace_id, span_id, parent_id, should_sample = parse_zipkin_b3_headers(headers, composed_header)
   elseif header_type == "w3c" then
     trace_id, parent_id, should_sample = parse_w3c_trace_context_headers(composed_header)
+  elseif header_type == "request-id" then
+    trace_id = composed_header
   end
 
   if not trace_id then
