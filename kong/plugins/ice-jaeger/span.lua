@@ -25,8 +25,7 @@ local baggage_mt = {
 
 
 local function generate_span_id()
-  -- jaeger use 16 bytes span id
-  return rand_bytes(16)
+  return rand_bytes(8)
 end
 
 

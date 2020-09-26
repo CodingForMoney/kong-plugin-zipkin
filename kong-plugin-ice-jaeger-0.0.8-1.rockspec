@@ -1,9 +1,9 @@
 package = "kong-plugin-ice-jaeger"
-version = "0.0.7-1"
+version = "0.0.8-1"
 
 source = {
   url = "git+https://git@github.com/CodingForMoney/kong-plugin-zipkin.git",
-  tag = "0.0.7",
+  tag = "0.0.8",
 }
 
 description = {

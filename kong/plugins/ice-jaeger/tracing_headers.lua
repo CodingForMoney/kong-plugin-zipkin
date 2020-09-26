@@ -268,7 +268,8 @@ local function parse(headers)
   elseif header_type == "w3c" then
     trace_id, parent_id, should_sample = parse_w3c_trace_context_headers(composed_header)
   elseif header_type == "ice-jaeger" then
-    trace_id = composed_header
+    -- keep same type as others
+    trace_id = from_hex(composed_header)
   end
 
   if not trace_id then
@@ -328,8 +329,8 @@ local function set(conf_header_type, found_header_type, proxy_span, conf_default
     set_header("uber-trace-id", fmt("%s:%s:%s:%s",
     to_hex(proxy_span.trace_id),
     to_hex(proxy_span.span_id),
-    to_hex(proxy_span.parent_id)),
-    proxy_span.should_sample and "1" or "0")
+    to_hex(proxy_span.parent_id),
+    proxy_span.should_sample and "1" or "0"))
   end
 
   for key, value in proxy_span:each_baggage_item() do
