@@ -41,7 +41,7 @@ local validate_static_tags = function(tags)
 end
 
 return {
-  name = "zipkin",
+  name = "ice-jaeger",
   fields = {
     { config = {
         type = "record",
